@@ -45,3 +45,22 @@ Create flashcards and quiz questions.
     bot.reply_to(message, "✅ تم إنشاء الملخص والفلاش كارد ورفعها إلى GitHub")
 
 bot.infinity_polling()
+
+from flask import Flask
+from threading import Thread
+import os
+
+app = Flask("")
+
+@app.route("/")
+def home():
+    return "Bot is running"
+
+def run():
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+keep_alive()
