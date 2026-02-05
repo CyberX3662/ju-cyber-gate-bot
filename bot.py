@@ -18,8 +18,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 # CLIENTS
 # ======================
 
-bot = telebot.TeleBot(BOT_TOKEN)
-@bot.message_handler(content_types=["document"])
+bot = telebot.TeleBot(BOT_TOKEN)@bot.message_handler(content_types=["document"])
 def handle_file(message):
     try:
         bot.reply_to(message, "⏳ جاري قراءة الملف ومعالجته...")
@@ -28,7 +27,6 @@ def handle_file(message):
         file_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file_info.file_path}"
 
         file_bytes = requests.get(file_url).content
-
         text = file_bytes.decode("utf-8", errors="ignore")[:4000]
 
         prompt = f"""
@@ -54,6 +52,9 @@ Create flashcards and quiz questions.
             repo.create_file(path, "create file", content)
 
         bot.reply_to(message, "✅ تم إنشاء الملخص + فلاش كارد + أسئلة ورفعها إلى GitHub")
+
+    except Exception as e:
+        bot.reply_to(message, f"❌ حصل خطأ:\n{e}")
 
     except Exception as e:
         bot.reply_to(message, f"❌ حصل خطأ:\n{e}")
