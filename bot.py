@@ -19,6 +19,12 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 # ======================
 
 bot = telebot.TeleBot(BOT_TOKEN)
+@bot.message_handler(commands=["start"])
+def start(message):
+    bot.reply_to(
+        message,
+        "👋 أهلاً بك!\n\nأرسل ملف PDF أو Word وسأقوم بتلخيصه + إنشاء فلاش كارد وأسئلة ورفعها إلى GitHub."
+    )
 client = OpenAI(api_key=OPENAI_KEY)
 g = Github(GITHUB_TOKEN)
 repo = g.get_repo("CyberX3662/JU-Cyber-Gate")
