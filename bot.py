@@ -81,10 +81,13 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 
+def start_bot():
+    bot.infinity_polling(skip_pending=True)
+
+Thread(target=start_bot).start()
 keep_alive()
+
 
 # ======================
 # START BOT
 # ======================
-
-bot.infinity_polling()
